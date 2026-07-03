@@ -19,7 +19,6 @@
   const contactSubmit = document.getElementById('contact-submit');
   const emailInput = document.getElementById('email');
   const phoneInput = document.getElementById('phone');
-  const countryCodeSelect = document.getElementById('country-code');
   const emailError = document.getElementById('email-error');
   const phoneError = document.getElementById('phone-error');
 
@@ -29,6 +28,23 @@
 
   /* Paste your Google Apps Script Web app URL here (ends with /exec) */
   const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHLKHxOuAbAOW60w-p8myJ7YIVVJ18kDY_ZpgkyAPXNj7-LhRHwGE378s2TRZWogLC-g/exec';
+
+  /* ── Reset to home on refresh ── */
+  function initPagePosition() {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
+    const navEntry = performance.getEntriesByType('navigation')[0];
+    if (navEntry && navEntry.type === 'reload') {
+      if (window.location.hash) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+      window.scrollTo(0, 0);
+    }
+  }
+
+  initPagePosition();
 
   /* ── Theme (Dark / Light) ── */
   const THEME_KEY = 'portfolio-theme';
@@ -231,10 +247,7 @@
       const formData = new FormData(contactForm);
       const name = formData.get('name').trim();
       const message = formData.get('message').trim();
-      const countryCode = countryCodeSelect ? countryCodeSelect.value : '+91';
-      const phoneDigits = phoneInput.value.trim();
-      /* Wrap country code in parentheses so Sheets doesn't treat leading + as a formula */
-      const fullPhone = `(${countryCode}) ${phoneDigits}`;
+      const phone = phoneInput.value.trim();
 
       if (!name || !message) {
         setContactStatus('error', 'Please fill in all fields.');
@@ -249,7 +262,7 @@
       const params = new URLSearchParams({
         name,
         email: emailInput.value.trim(),
-        phone: fullPhone,
+        phone,
         message,
       });
 
@@ -266,7 +279,6 @@
         });
 
         contactForm.reset();
-        if (countryCodeSelect) countryCodeSelect.value = '+91';
         setFieldError(emailInput, emailError, '');
         setFieldError(phoneInput, phoneError, '');
         setContactStatus('success', 'Thank you! Your message has been sent. I\'ll get back to you soon.');
