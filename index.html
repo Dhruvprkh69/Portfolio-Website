@@ -360,7 +360,7 @@
     <!-- Contact -->
     <section class="contact section" id="contact">
       <div class="container">
-        <div class="contact__wrapper contact__wrapper--centered">
+        <div class="contact__wrapper">
           <div class="contact__info reveal">
             <span class="section__label">Contact</span>
             <h2 class="section__title">Let's Build Something That Solves Real Problems</h2>
@@ -390,6 +390,61 @@
               </a>
             </div>
           </div>
+
+          <form class="contact-form reveal" id="contact-form" novalidate>
+            <h3 class="contact-form__title">Send a Query</h3>
+            <p class="contact-form__desc">Fill out the form and I'll get back to you within 24 hours.</p>
+
+            <div class="contact-form__honeypot" aria-hidden="true">
+              <label for="website">Website</label>
+              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <div class="contact-form__group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required placeholder="Your full name" autocomplete="name">
+            </div>
+
+            <div class="contact-form__group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required placeholder="you@gmail.com" autocomplete="email">
+              <span class="contact-form__field-error" id="email-error"></span>
+            </div>
+
+            <div class="contact-form__group contact-form__group--phone">
+              <label for="phone">Phone no.</label>
+              <div class="contact-form__phone">
+                <select id="country-code" name="country_code" aria-label="Country code">
+                  <option value="+91" selected>🇮🇳 +91</option>
+                  <option value="+1">🇺🇸 +1</option>
+                  <option value="+44">🇬🇧 +44</option>
+                  <option value="+971">🇦🇪 +971</option>
+                  <option value="+966">🇸🇦 +966</option>
+                  <option value="+61">🇦🇺 +61</option>
+                  <option value="+65">🇸🇬 +65</option>
+                  <option value="+60">🇲🇾 +60</option>
+                  <option value="+49">🇩🇪 +49</option>
+                  <option value="+33">🇫🇷 +33</option>
+                  <option value="+81">🇯🇵 +81</option>
+                  <option value="+86">🇨🇳 +86</option>
+                </select>
+                <input type="tel" id="phone" name="phone" required placeholder="9876543210" maxlength="10" inputmode="numeric" autocomplete="tel-national">
+              </div>
+              <span class="contact-form__hint">Enter 10-digit mobile number (digits only)</span>
+              <span class="contact-form__field-error" id="phone-error"></span>
+            </div>
+
+            <div class="contact-form__group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required rows="5" placeholder="Tell me about your project or requirement..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--full" id="contact-submit">
+              Send Message
+            </button>
+
+            <p class="contact-form__status" id="contact-status" role="status" aria-live="polite"></p>
+          </form>
         </div>
       </div>
     </section>
