@@ -233,7 +233,8 @@
       const message = formData.get('message').trim();
       const countryCode = countryCodeSelect ? countryCodeSelect.value : '+91';
       const phoneDigits = phoneInput.value.trim();
-      const fullPhone = `${countryCode} ${phoneDigits}`;
+      /* Wrap country code in parentheses so Sheets doesn't treat leading + as a formula */
+      const fullPhone = `(${countryCode}) ${phoneDigits}`;
 
       if (!name || !message) {
         setContactStatus('error', 'Please fill in all fields.');
