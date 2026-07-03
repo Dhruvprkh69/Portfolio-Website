@@ -30,21 +30,21 @@
   const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHLKHxOuAbAOW60w-p8myJ7YIVVJ18kDY_ZpgkyAPXNj7-LhRHwGE378s2TRZWogLC-g/exec';
 
   /* ── Reset to home on refresh ── */
-  function initPagePosition() {
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
-    }
+  function resetToHomeOnRefresh() {
+    const nav = performance.getEntriesByType('navigation')[0];
+    if (!nav || nav.type !== 'reload') return;
 
-    const navEntry = performance.getEntriesByType('navigation')[0];
-    if (navEntry && navEntry.type === 'reload') {
-      if (window.location.hash) {
-        history.replaceState(null, '', window.location.pathname + window.location.search);
-      }
-      window.scrollTo(0, 0);
+    if (window.location.hash) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
     }
+    window.scrollTo(0, 0);
   }
 
-  initPagePosition();
+  resetToHomeOnRefresh();
+  document.addEventListener('DOMContentLoaded', resetToHomeOnRefresh);
+  window.addEventListener('pageshow', () => {
+    resetToHomeOnRefresh();
+  });
 
   /* ── Theme (Dark / Light) ── */
   const THEME_KEY = 'portfolio-theme';
@@ -157,6 +157,11 @@
       const target = document.querySelector(targetId);
       if (target) {
         e.preventDefault();
+        if (targetId === '#hero') {
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+        } else {
+          history.replaceState(null, '', targetId);
+        }
         target.scrollIntoView({ behavior: 'smooth' });
       }
     });

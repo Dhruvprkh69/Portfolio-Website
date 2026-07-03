@@ -9,6 +9,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script>
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    (function () {
+      var nav = performance.getEntriesByType('navigation')[0];
+      if (nav && nav.type === 'reload') {
+        if (location.hash) {
+          history.replaceState(null, '', location.pathname + location.search);
+        }
+        scrollTo(0, 0);
+      }
+    })();
+  </script>
 </head>
 <body>
 
@@ -393,7 +405,7 @@
 
           <form class="contact-form reveal" id="contact-form" novalidate>
             <h3 class="contact-form__title">Send a Query</h3>
-            <p class="contact-form__desc">Fill out the form and I'll get back to you within 24 hours.</p>
+            <p class="contact-form__desc">I'll get back to you within 24 hours.</p>
 
             <div class="contact-form__honeypot" aria-hidden="true">
               <label for="website">Website</label>
@@ -405,25 +417,25 @@
               <input type="text" id="name" name="name" required placeholder="Your full name" autocomplete="name">
             </div>
 
-            <div class="contact-form__group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" required placeholder="you@gmail.com" autocomplete="email">
-              <span class="contact-form__field-error" id="email-error"></span>
-            </div>
-
-            <div class="contact-form__group">
-              <label for="phone">Phone no.</label>
-              <input type="tel" id="phone" name="phone" required placeholder="9876543210" maxlength="10" inputmode="numeric" autocomplete="tel">
-              <span class="contact-form__hint">10-digit mobile number (digits only)</span>
-              <span class="contact-form__field-error" id="phone-error"></span>
+            <div class="contact-form__row">
+              <div class="contact-form__group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="you@gmail.com" autocomplete="email">
+                <span class="contact-form__field-error" id="email-error"></span>
+              </div>
+              <div class="contact-form__group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" required placeholder="10-digit number" maxlength="10" inputmode="numeric" autocomplete="tel">
+                <span class="contact-form__field-error" id="phone-error"></span>
+              </div>
             </div>
 
             <div class="contact-form__group">
               <label for="message">Message</label>
-              <textarea id="message" name="message" required rows="5" placeholder="Tell me about your project or requirement..."></textarea>
+              <textarea id="message" name="message" required rows="3" placeholder="Your project or requirement..."></textarea>
             </div>
 
-            <button type="submit" class="btn btn--primary btn--full" id="contact-submit">
+            <button type="submit" class="btn btn--primary btn--full contact-form__submit" id="contact-submit">
               Send Message
             </button>
 
