@@ -27,11 +27,7 @@ jobs:
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: |
-            index.html
-            styles.css
-            app.js
-            .nojekyll
+          path: .
 
   deploy:
     needs: build
